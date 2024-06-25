@@ -32,36 +32,42 @@ function writeToLog(
   console.log(logEntries);
 }
 
-function add() {
+function calculateResult(calculateTypes) {
   const enteredNumber = getUserNumberInput();
   const initialResult = currentResult;
-  currentResult = currentResult + enteredNumber;
-  createAndWriteOutput("+", initialResult, enteredNumber);
-  writeToLog("Add", initialResult, enteredNumber, currentResult);
+  let mathOperator;
+  if (calculateTypes === "ADD") {
+    currentResult += enteredNumber;
+    mathOperator = "+";
+  } else if (calculateTypes === "SUBTRACT") {
+    currentResult -= enteredNumber;
+    mathOperator = "-";
+  } else if (calculateTypes === "MULTIPLY") {
+    currentResult *= enteredNumber;
+    mathOperator = "*";
+  } else if (calculateTypes === "DIVIDE") {
+    currentResult /= enteredNumber;
+    mathOperator = "/";
+  }
+
+  createAndWriteOutput(mathOperator, initialResult, enteredNumber);
+  writeToLog(calculateTypes, initialResult, enteredNumber, currentResult);
+}
+
+function add() {
+  calculateResult("ADD");
 }
 
 function subtract() {
-  const enteredNumber = getUserNumberInput();
-  const initialResult = currentResult;
-  currentResult = currentResult - enteredNumber;
-  createAndWriteOutput("-", initialResult, enteredNumber);
-  writeToLog("Substract", initialResult, enteredNumber, currentResult);
+  calculateResult("SUBTRACT");
 }
 
 function multiply() {
-  const enteredNumber = getUserNumberInput();
-  const initialResult = currentResult;
-  currentResult = currentResult * enteredNumber;
-  createAndWriteOutput("*", initialResult, enteredNumber);
-  writeToLog("Multiply", initialResult, enteredNumber, currentResult);
+  calculateResult("MULTIPLY");
 }
 
 function divide() {
-  const enteredNumber = getUserNumberInput();
-  const initialResult = currentResult;
-  currentResult = currentResult / enteredNumber;
-  createAndWriteOutput("/", initialResult, enteredNumber);
-  writeToLog("Divide", initialResult, enteredNumber, currentResult);
+  calculateResult("DIVIDE");
 }
 
 addBtn.addEventListener("click", add);
